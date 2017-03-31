@@ -2253,12 +2253,14 @@ int hdd_ipa_uc_ssr_deinit()
 	struct hdd_ipa_priv *hdd_ipa = ghdd_ipa;
 	int idx;
 	struct hdd_ipa_iface_context *iface_context;
+	hdd_context_t *hdd_ctx;
 
 	if (!hdd_ipa_uc_is_enabled(hdd_ipa))
 		return 0;
 
-	/* send disconnect to ipa driver for connected clients */
-	hdd_ipa_uc_disconnect_client(hdd_ipa->hdd_ctx);
+	hdd_ctx = hdd_ipa->hdd_ctx;
+	/* send disconnect to ipa driver */
+	hdd_ipa_uc_disconnect(hdd_ctx);
 
 	/* Clean up HDD IPA interfaces */
 	for (idx = 0; (hdd_ipa->num_iface > 0) &&
